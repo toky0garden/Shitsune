@@ -1,8 +1,21 @@
 'use client';
 
 import Link from 'next/link';
+import { useCallback, useState } from 'react';
 
 export function Login() {
+	const [usernameValue, setUsernameValue] = useState('');
+	const [passwordValue, setPasswordValue] = useState('');
+
+	const handleChangeUser = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => setUsernameValue(e.target.value),
+		[]
+	);
+	const handleChangePassword = useCallback(
+		(e: React.ChangeEvent<HTMLInputElement>) => setPasswordValue(e.target.value),
+		[]
+	);
+
 	// useEffect(() => {
 	// 	fetch('http://26.172.117.24:8000/api/hello')
 	// 		.then((res) => res.json())
@@ -26,6 +39,8 @@ export function Login() {
 							<input
 								id='username'
 								type='text'
+								value={usernameValue}
+								onChange={handleChangeUser}
 								placeholder='desp@ayano.mc'
 								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
@@ -36,21 +51,21 @@ export function Login() {
 								<span className='text-white text-sm font-semibold'>Пароль</span>
 							</div>
 							<input
-								id='username'
-								type='text'
+								id='password'
+								type='password'
+								value={passwordValue}
+								onChange={handleChangePassword}
 								placeholder='Введите пароль'
 								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
 						</div>
 
-						<Link href='/'>
-							<button
-								style={{ cursor: 'pointer' }}
-								className='w-full bg-white text-black font-semibold py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4'
-							>
-								Продолжить
-							</button>
-						</Link>
+						<button
+							style={{ cursor: 'pointer' }}
+							className='w-full bg-white text-black font-semibold py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4'
+						>
+							Продолжить
+						</button>
 
 						<p className='text-center text-sm text-stone-400'>
 							Ещё нет аккаунта?{' '}

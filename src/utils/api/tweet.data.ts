@@ -1,4 +1,4 @@
-import { ITweet } from '../types/tweet.type';
+import { ITweet } from '@/types/tweet.interface';
 
 export const TWEETS: ITweet[] = [
 	{

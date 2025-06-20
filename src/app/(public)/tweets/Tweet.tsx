@@ -1,6 +1,6 @@
-import { TweetForm } from '@/shared/components/TweetForm';
-import { TWEETS } from '@/shared/testData/tweet.data';
-import { TweetCard } from '../../../shared/components/TweetCard';
+import { TWEETS } from '@/utils/api/tweet.data';
+import { TweetCard } from './TweetCard';
+import { TweetForm } from './TweetForm';
 
 export function Tweet() {
 	return (

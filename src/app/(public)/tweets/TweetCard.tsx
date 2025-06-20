@@ -1,4 +1,4 @@
-import { ITweet } from '@/shared/types/tweet.type';
+import { ITweet } from '@/types/tweet.interface';
 
 interface Props {
 	tweet: ITweet;
