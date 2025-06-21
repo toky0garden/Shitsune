@@ -1,5 +1,6 @@
 'use client';
 
+import { Input } from '@/components/auth/Input';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -9,12 +10,14 @@ export function Login() {
 	const [message, setMessage] = useState('');
 
 	const handleChangeUser = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setUsernameValue(e.target.value),
-		[]
+		(e: React.ChangeEvent<HTMLInputElement>) =>
+			setUsernameValue(e.target.value),
+		[],
 	);
 	const handleChangePassword = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setPasswordValue(e.target.value),
-		[]
+		(e: React.ChangeEvent<HTMLInputElement>) =>
+			setPasswordValue(e.target.value),
+		[],
 	);
 
 	useEffect(() => {
@@ -28,43 +31,45 @@ export function Login() {
 			<div className='w-full' style={{ maxWidth: 400 }}>
 				<div className='p-8 border border-stone-800 rounded-lg'>
 					{message}
-					<h2 className='text-xl font-semibold mb-2 text-white text-center'>Вход в аккаунт</h2>
+					<h2 className='text-xl font-semibold mb-2 text-white text-center'>
+						Вход в аккаунт
+					</h2>
 					<p className='text-stone-400 text-center text-sm mb-6'>
 						Введите имя пользователя или почту а также пароль
 					</p>
 
 					<form className='space-y-4'>
 						<div className='mb-4'>
-							<div className='mb-2'>
-								<span className='text-white text-sm font-semibold'>Имя пользователя или почта</span>
+							<div className='mb-1'>
+								<span className='text-white text-sm font-semibold'>
+									Имя пользователя или почта
+								</span>
 							</div>
-							<input
+							<Input
 								name='username'
 								type='text'
 								value={usernameValue}
 								onChange={handleChangeUser}
 								placeholder='desp@ayano.mc'
-								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
 						</div>
 
 						<div className='mb-4'>
-							<div className='mb-2'>
+							<div className='mb-1'>
 								<span className='text-white text-sm font-semibold'>Пароль</span>
 							</div>
-							<input
+							<Input
 								name='password'
 								type='password'
 								value={passwordValue}
 								onChange={handleChangePassword}
 								placeholder='Введите пароль'
-								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
 						</div>
 
 						<button
-							style={{ cursor: 'pointer' }}
-							className='w-full bg-white text-black font-semibold py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4'
+							style={{ cursor: 'pointer', fontSize: 16 }}
+							className='w-full bg-white text-black py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4'
 						>
 							Продолжить
 						</button>

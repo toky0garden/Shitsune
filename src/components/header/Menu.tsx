@@ -1,6 +1,6 @@
 'use client';
 
-import { ROUTES, STYLES } from '@/utils';
+import { ROUTES, STYLES } from '@/constants';
 import { Info, Library, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 

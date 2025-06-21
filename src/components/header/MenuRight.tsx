@@ -1,4 +1,4 @@
-import { ROUTES } from '@/utils';
+import { ROUTES } from '@/constants';
 import { User } from 'lucide-react';
 import Link from 'next/link';
 
