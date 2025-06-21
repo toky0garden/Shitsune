@@ -1,4 +1,4 @@
-import { TWEETS } from '@/utils/api/tweet.data';
+import { TWEETS } from '@/utils/tempApi/tweet.data';
 import { TweetCard } from './TweetCard';
 import { TweetForm } from './TweetForm';
 

@@ -1,29 +1,68 @@
 'use client';
 
+import { registerUser } from '@/app/api/auth/register/route';
+import { Error } from '@/components/Error';
+import { useBoolean } from '@/shared/hooks';
+import { RegisterData } from '@/types/register.types';
 import Link from 'next/link';
 import React from 'react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 export function Register() {
-	const [loginValue, setLoginValue] = useState('');
-	const [emailValue, setEmailValue] = useState('');
-	const [passwordValue, setPasswordValue] = useState('');
+	const [formData, setFormData] = useState<RegisterData>({
+		username: '',
+		email: '',
+		password: ''
+	});
+	const [error, setError] = useState<string>('');
+	const [showError, setShowError] = useBoolean(false);
 
-	const handleChangeLogin = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setLoginValue(e.target.value),
-		[]
-	);
-	const handleChangeEmail = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setEmailValue(e.target.value),
-		[]
-	);
-	const handleChangePassword = useCallback(
-		(e: React.ChangeEvent<HTMLInputElement>) => setPasswordValue(e.target.value),
-		[]
-	);
+	//setError в отправке запроса на бэк юзаем в try catch
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { name, value } = e.target;
+		setFormData((prev) => ({ ...prev, [name]: value }));
+	};
+
+	const showErrorMsg = () => {
+		setShowError(true);
+		setTimeout(() => setShowError(false), 4000);
+	};
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault();
+
+		if (!formData.username || !formData.email || !formData.password) {
+			setError('Заполните все поля');
+			showErrorMsg();
+			return;
+		}
+
+		if (!/\S+@\S+\.\S+/.test(formData.email)) {
+			setError('Введите корректный email');
+			showErrorMsg();
+			return;
+		}
+
+		if (formData.password.length < 6) {
+			setError('Пароль должен содержать минимум 6 символов');
+			showErrorMsg();
+			return;
+		}
+
+		try {
+			await registerUser(formData);
+			return;
+		} catch {
+			setError('Произошла ошибка при регистрации');
+			showErrorMsg();
+			return;
+		}
+	};
 
 	return (
 		<div className='min-h-screen flex items-center justify-center'>
+			{showError && <Error message={error} isVisible={showError} />}
 			<div className='w-full' style={{ maxWidth: 400 }}>
 				<div className='p-8 border border-stone-800 rounded-lg'>
 					<h2 className='text-xl font-semibold mb-2 text-white text-center'>Регистрация</h2>
@@ -37,10 +76,10 @@ export function Register() {
 								<span className='text-white text-sm font-semibold'>Имя пользователя</span>
 							</div>
 							<input
-								id='username'
+								name='username'
 								type='text'
-								value={loginValue}
-								onChange={handleChangeLogin}
+								value={formData.username}
+								onChange={handleChange}
 								placeholder='inadzuma'
 								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
@@ -51,10 +90,10 @@ export function Register() {
 								<span className='text-white text-sm font-semibold'>Почта</span>
 							</div>
 							<input
-								id='email'
+								name='email'
 								type='email'
-								value={emailValue}
-								onChange={handleChangeEmail}
+								value={formData.email}
+								onChange={handleChange}
 								placeholder='desp@ayano.mc'
 								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
@@ -65,10 +104,10 @@ export function Register() {
 								<span className='text-white text-sm font-semibold'>Пароль</span>
 							</div>
 							<input
-								id='password'
+								name='password'
 								type='password'
-								value={passwordValue}
-								onChange={handleChangePassword}
+								value={formData.password}
+								onChange={handleChange}
 								placeholder='Введите пароль'
 								className='w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80'
 							/>
@@ -76,6 +115,7 @@ export function Register() {
 
 						<button
 							style={{ cursor: 'pointer' }}
+							onClick={handleSubmit}
 							className='w-full bg-white text-black font-semibold py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4'
 						>
 							Создать аккаунт

@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function Login() {
 	const [usernameValue, setUsernameValue] = useState('');
 	const [passwordValue, setPasswordValue] = useState('');
+	const [message, setMessage] = useState('');
 
 	const handleChangeUser = useCallback(
 		(e: React.ChangeEvent<HTMLInputElement>) => setUsernameValue(e.target.value),
@@ -16,16 +17,17 @@ export function Login() {
 		[]
 	);
 
-	// useEffect(() => {
-	// 	fetch('http://26.172.117.24:8000/api/hello')
-	// 		.then((res) => res.json())
-	// 		.then((data) => setMessage(data.message));
-	// }, []);
+	useEffect(() => {
+		fetch('http://26.172.117.24:8000/api/hello')
+			.then((res) => res.json())
+			.then((data) => setMessage(data.message));
+	}, []);
 
 	return (
 		<div className='min-h-screen flex items-center justify-center'>
 			<div className='w-full' style={{ maxWidth: 400 }}>
 				<div className='p-8 border border-stone-800 rounded-lg'>
+					{message}
 					<h2 className='text-xl font-semibold mb-2 text-white text-center'>Вход в аккаунт</h2>
 					<p className='text-stone-400 text-center text-sm mb-6'>
 						Введите имя пользователя или почту а также пароль
@@ -37,7 +39,7 @@ export function Login() {
 								<span className='text-white text-sm font-semibold'>Имя пользователя или почта</span>
 							</div>
 							<input
-								id='username'
+								name='username'
 								type='text'
 								value={usernameValue}
 								onChange={handleChangeUser}
@@ -51,7 +53,7 @@ export function Login() {
 								<span className='text-white text-sm font-semibold'>Пароль</span>
 							</div>
 							<input
-								id='password'
+								name='password'
 								type='password'
 								value={passwordValue}
 								onChange={handleChangePassword}
