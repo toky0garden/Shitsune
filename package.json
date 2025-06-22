@@ -6,7 +6,8 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@auth/core": "^0.34.2",
@@ -30,7 +31,18 @@
 		"@types/react-dom": "^19",
 		"eslint": "^9",
 		"eslint-config-next": "15.3.4",
+		"husky": "^8.0.0",
+		"lint-staged": "^16.1.2",
 		"tailwindcss": "^4",
 		"typescript": "^5"
+	},
+	"lint-staged": {
+		"*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{json,md,html,css,scss}": [
+			"prettier --write"
+		]
 	}
 }
