@@ -18,9 +18,8 @@ export function middleware(request: NextRequest) {
     pathname.includes("/auth/login") &&
     pathname.includes("/auth/register")
   ) {
-    return NextResponse.redirect(
-      new URL("доделать логику с профилем", request.url),
-    );
+    return NextResponse.redirect(new URL("/tweets", request.url));
+    //логика с профилем должна быть /tweets это тест!!
   }
   return NextResponse.next();
 }
