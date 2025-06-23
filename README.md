@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://www.shutterstock.com/image-vector/bird-falcon-circle-frame-logo-600nw-2488485751.jpg" width="100" alt="YTweet Logo"/>
   <h1>YTweet</h1>
-  <h3>Ваша безопасная платформа для общения</h3>
+  <h3>Ваша безопасная платформа для общения вдохновленная Twitter</h3>
   
   <p>
     <img src="https://img.shields.io/badge/безопасность-100%25-brightgreen" alt="Security"/>
