@@ -1,24 +1,38 @@
-'use client';
+"use client";
 
-import { ROUTES, STYLES } from '@/constants';
-import { Info, Library, MessageCircle } from 'lucide-react';
-import Link from 'next/link';
+import { ROUTES, STYLES } from "@/constants";
+import { cn } from "@/lib/utils";
+import { HelpCircleIcon, Library, MessageCircle } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 export function Menu() {
-	return (
-		<nav className='hidden md:flex items-center space-x-6'>
-			<Link href={ROUTES.TWEETS} className={STYLES.HeaderLink.LINK_MENU}>
-				<Library size={20} />
-				Твиты
-			</Link>
-			<Link href={ROUTES.CHAT} className={STYLES.HeaderLink.LINK_MENU}>
-				<MessageCircle />
-				Чат
-			</Link>
-			<Link href={ROUTES.FAQ} className={STYLES.HeaderLink.LINK_MENU}>
-				<Info size={20} />
-				FAQ
-			</Link>
-		</nav>
-	);
+  return (
+    <nav
+      className="hidden md:flex items-center space-x-6 font-semibold"
+      style={{ fontSize: 14 }}
+    >
+      <Link
+        href={ROUTES.TWEETS}
+        className={`${cn(buttonVariants({ variant: "ghost" }))} ${STYLES.HeaderLink.LINK_MENU}`}
+      >
+        <Library className="size-4" />
+        Твит
+      </Link>
+      <Link
+        href={ROUTES.CHAT}
+        className={`${cn(buttonVariants({ variant: "ghost" }))} ${STYLES.HeaderLink.LINK_MENU}`}
+      >
+        <MessageCircle className="size-4" />
+        Чат
+      </Link>
+      <Link
+        href={ROUTES.FAQ}
+        className={`${cn(buttonVariants({ variant: "ghost" }))} ${STYLES.HeaderLink.LINK_MENU}`}
+      >
+        <HelpCircleIcon className="size-4" />
+        FAQ
+      </Link>
+    </nav>
+  );
 }

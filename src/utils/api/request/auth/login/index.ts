@@ -1,12 +1,13 @@
 import { API_URL } from "@/constants";
-import { RegisterData, RegisterResponse } from "@/types/register.types";
+import { LoginData, LoginResponse } from "@/types/login.types";
 import axios from "axios";
 import Cookies from "js-cookie";
 
-export const signUp = async (formData: RegisterData) => {
+//НЕ РАБОТАЕТ
+export const signIn = async (formData: LoginData) => {
   try {
-    const response = await axios.post<RegisterResponse>(
-      `http://${API_URL}/api/register`,
+    const response = await axios.post<LoginResponse>(
+      `http://${API_URL}/api/token`,
       formData,
       { withCredentials: true },
     );

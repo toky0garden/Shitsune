@@ -1,5 +1,5 @@
 export interface RegisterData {
-  login: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -7,7 +7,7 @@ export interface RegisterData {
 export interface RegisterResponse {
   token: string;
   user: {
-    login: string;
+    username: string;
     email: string;
     password: string;
   };

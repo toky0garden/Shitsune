@@ -1,41 +1,28 @@
 import Link from "next/link";
 import { Input } from "../Input";
-import { RegisterData } from "@/types/register.types";
+import { LoginData } from "@/types/login.types";
 
-export function RegisterForm({
+export function LoginForm({
   formData,
   handleChangeValue,
-  handleRegisterUser,
+  handleLoginUser,
 }: {
-  formData: RegisterData;
+  formData: LoginData;
   handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleRegisterUser: (e: React.FormEvent) => void;
+  handleLoginUser: (e: React.FormEvent) => void;
 }) {
   return (
     <form className="space-y-4">
       <div className="mb-4">
         <div className="mb-1">
           <span className="text-white text-sm font-semibold">
-            Имя пользователя
+            Имя пользователя или почта
           </span>
         </div>
         <Input
           name="username"
           type="text"
           value={formData.username}
-          onChange={handleChangeValue}
-          placeholder="inadzuma"
-        />
-      </div>
-
-      <div className="mb-4">
-        <div className="mb-1">
-          <span className="text-white text-sm font-semibold">Почта</span>
-        </div>
-        <Input
-          name="email"
-          type="email"
-          value={formData.email}
           onChange={handleChangeValue}
           placeholder="desp@ayano.mc"
         />
@@ -56,16 +43,16 @@ export function RegisterForm({
 
       <button
         style={{ cursor: "pointer", fontSize: 16 }}
-        onClick={handleRegisterUser}
+        onClick={handleLoginUser}
         className="w-full bg-white text-black py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4"
       >
-        Создать аккаунт
+        Продолжить
       </button>
 
       <p className="text-center text-sm text-stone-400">
-        Есть аккаунт?{" "}
+        Ещё нет аккаунта?{" "}
         <span className="text-white hover:text-gray-400 transition-colors">
-          <Link href="/auth/login">Войти</Link>
+          <Link href="/auth/register">Регистрация</Link>
         </span>
       </p>
     </form>

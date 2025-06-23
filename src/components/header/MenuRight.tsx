@@ -1,13 +1,19 @@
-import { ROUTES } from '@/constants';
-import { User } from 'lucide-react';
-import Link from 'next/link';
+import { ROUTES, STYLES } from "@/constants";
+import { cn } from "@/lib/utils";
+import { UserIcon } from "lucide-react";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 export function MenuRight() {
-	return (
-		<div className='flex items-center space-x-4'>
-			<Link href={ROUTES.AUTH}>
-				<User className='h-5 w-5 text-gray-400 cursor-pointer hover:text-white' />
-			</Link>
-		</div>
-	);
+  return (
+    <div className="flex items-center space-x-4">
+      <Link
+        href={ROUTES.AUTH}
+        prefetch
+        className={`${cn(buttonVariants({ variant: "ghost" }))} ${STYLES.HeaderLink.LINK_MENU}`}
+      >
+        <UserIcon className="size-4" />
+      </Link>
+    </div>
+  );
 }

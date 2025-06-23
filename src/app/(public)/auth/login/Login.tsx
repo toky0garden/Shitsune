@@ -1,26 +1,47 @@
 "use client";
 
-import { Input } from "@/components/auth/Input";
-import Link from "next/link";
-import { useCallback, useState } from "react";
+import { LoginForm } from "@/components/auth/login/LoginForm";
+import { Error } from "@/components/Error";
+import { getErrorMessage } from "@/generated/getErrorMessage";
+import { ValidateInputsForLogin } from "@/generated/validateInputs";
+import { useShowError } from "@/hooks";
+import { LoginData } from "@/types/login.types";
+import { signIn } from "@/utils/api/request/auth/login";
+import { useState } from "react";
 
 export function Login() {
-  const [usernameValue, setUsernameValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [formData, setFormData] = useState<LoginData>({
+    username: "",
+    password: "",
+  });
+  const { error, showError, showErrorMsg } = useShowError();
 
-  const handleChangeUser = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setUsernameValue(e.target.value),
-    [],
-  );
-  const handleChangePassword = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) =>
-      setPasswordValue(e.target.value),
-    [],
-  );
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleLoginUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const validation = ValidateInputsForLogin(formData);
+
+    if (validation.isValid) {
+      try {
+        const data = await signIn(formData);
+        console.log(data);
+      } catch (err) {
+        showErrorMsg(getErrorMessage(err));
+      }
+    } else {
+      showErrorMsg(validation.error);
+      return;
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center">
+      {showError && <Error message={error} isVisible={showError} />}
       <div className="w-full" style={{ maxWidth: 400 }}>
         <div className="p-8 border border-stone-800 rounded-lg">
           <h2 className="text-xl font-semibold mb-2 text-white text-center">
@@ -30,49 +51,11 @@ export function Login() {
             Введите имя пользователя или почту а также пароль
           </p>
 
-          <form className="space-y-4">
-            <div className="mb-4">
-              <div className="mb-1">
-                <span className="text-white text-sm font-semibold">
-                  Имя пользователя или почта
-                </span>
-              </div>
-              <Input
-                name="username"
-                type="text"
-                value={usernameValue}
-                onChange={handleChangeUser}
-                placeholder="desp@ayano.mc"
-              />
-            </div>
-
-            <div className="mb-4">
-              <div className="mb-1">
-                <span className="text-white text-sm font-semibold">Пароль</span>
-              </div>
-              <Input
-                name="password"
-                type="password"
-                value={passwordValue}
-                onChange={handleChangePassword}
-                placeholder="Введите пароль"
-              />
-            </div>
-
-            <button
-              style={{ cursor: "pointer", fontSize: 16 }}
-              className="w-full bg-white text-black py-0.5 rounded-md hover:bg-stone-300 transition-colors mb-4"
-            >
-              Продолжить
-            </button>
-
-            <p className="text-center text-sm text-stone-400">
-              Ещё нет аккаунта?{" "}
-              <span className="text-white hover:text-gray-400 transition-colors">
-                <Link href="/auth/register">Регистрация</Link>
-              </span>
-            </p>
-          </form>
+          <LoginForm
+            formData={formData}
+            handleChangeValue={handleChangeValue}
+            handleLoginUser={handleLoginUser}
+          />
         </div>
       </div>
     </div>

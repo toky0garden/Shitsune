@@ -4,32 +4,25 @@ import { Error } from "@/components/Error";
 import { RegisterForm } from "@/components/auth/register/RegisterForm";
 import { getErrorMessage } from "@/generated/getErrorMessage";
 import { ValidateInputsForRegister } from "@/generated/validateInputs";
-import { useBoolean } from "@/hooks";
+import { useShowError } from "@/hooks";
 import { RegisterData } from "@/types/register.types";
 import { signUp } from "@/utils/api/request/auth/register";
+import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 
 export function Register() {
   const [formData, setFormData] = useState<RegisterData>({
-    login: "",
+    username: "",
     email: "",
     password: "",
   });
-  const [error, setError] = useState<string>("");
-  const [showError, setShowError] = useBoolean(false);
-
-  //setError в отправке запроса на бэк юзаем в try catch
+  const { error, showError, showErrorMsg } = useShowError();
+  const router = useRouter();
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const showErrorMsg = (message: string) => {
-    setError(message);
-    setShowError(true);
-    setTimeout(() => setShowError(false), 4000);
   };
 
   const handleRegisterUser = async (e: React.FormEvent) => {
@@ -39,8 +32,8 @@ export function Register() {
 
     if (validation.isValid) {
       try {
-        const data = await signUp(formData);
-        console.log(data);
+        await signUp(formData);
+        router.push("/");
       } catch (err) {
         showErrorMsg(getErrorMessage(err));
       }

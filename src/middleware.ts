@@ -13,13 +13,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 
-  if (
-    token &&
-    pathname.includes("/auth/login") &&
-    pathname.includes("/auth/register")
-  ) {
+  if (token) {
     return NextResponse.redirect(new URL("/tweets", request.url));
-    //логика с профилем должна быть /tweets это тест!!
   }
   return NextResponse.next();
 }
