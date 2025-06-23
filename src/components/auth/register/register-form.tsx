@@ -1,18 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import { Input } from "../Input";
 import { RegisterData } from "@/types/register.types";
+import { ValidateInputsForRegister } from "@/generated/validateInputs";
+import { postRegister } from "@/utils/api/request";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { Error } from "@/components/Error";
 
-export function RegisterForm({
-  formData,
-  handleChangeValue,
-  handleRegisterUser,
-}: {
-  formData: RegisterData;
-  handleChangeValue: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleRegisterUser: (e: React.FormEvent) => void;
-}) {
+export function RegisterForm() {
+  const [formData, setFormData] = useState<RegisterData>({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const router = useRouter();
+
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRegisterUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const validation = ValidateInputsForRegister(formData);
+
+    if (validation.isValid) {
+      await postRegister({
+        params: formData,
+      }).catch((err) => toast.error(err));
+      router.push("/"); //НАДО ЧТОБ ВЕЛО НА ПРОФИЛЬ СТРАНИЦУ
+    } else {
+      toast.error(validation.error);
+      return;
+    }
+  };
+
   return (
     <form className="space-y-4">
+      <Error />
       <div className="mb-4">
         <div className="mb-1">
           <span className="text-white text-sm font-semibold">

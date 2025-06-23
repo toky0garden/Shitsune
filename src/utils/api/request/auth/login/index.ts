@@ -1,24 +1,23 @@
-import { API_URL } from "@/constants";
 import { LoginData, LoginResponse } from "@/types/login.types";
-import axios from "axios";
+import { api } from "@/utils/api/instance";
+import { RikTikDevRequestConfig } from "@/utils/api/type";
 import Cookies from "js-cookie";
 
-//НЕ РАБОТАЕТ
-export const signIn = async (formData: LoginData) => {
-  try {
-    const response = await axios.post<LoginResponse>(
-      `http://${API_URL}/api/token`,
-      formData,
-      { withCredentials: true },
-    );
+export const getLogin = async ({
+  params,
+  config,
+}: RikTikDevRequestConfig<LoginData>) => {
+  console.log("Sending login request with:", params);
+  const response = await api.post<LoginResponse>("/login", params, config);
+  console.log("Received response:", response);
 
-    if (response.data.token) {
-      Cookies.set("auth_token", response.data.token, { expires: 7 });
-    }
-
-    return response.data;
-  } catch (error) {
-    console.log("хуй знает че случилось" + error);
-    throw error;
+  if (response.data.token) {
+    Cookies.set("auth_token", response.data.token, { expires: 7 });
   }
+
+  if (response.status === 401 || response.status === 400) {
+    throw new Error("Неверный логин или пароль");
+  }
+
+  return response.data;
 };

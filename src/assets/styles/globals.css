@@ -16,3 +16,8 @@ body {
 html {
 	scroll-behavior: smooth;
 }
+
+.Toastify__toast-icon svg {
+	width: 16px;
+	height: 16px;
+}
