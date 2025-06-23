@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://img.icons8.com/fluency/96/twitter.png" width="100" alt="YTweet Logo"/>
+  <img src="https://www.shutterstock.com/image-vector/bird-falcon-circle-frame-logo-600nw-2488485751.jpg" width="100" alt="YTweet Logo"/>
   <h1>YTweet</h1>
   <h3>Ваша безопасная платформа для общения</h3>
   
