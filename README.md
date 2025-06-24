@@ -2,12 +2,6 @@
   <img src="public/images/banner.jpg" alt="Shitsune banner"/>
   <h1>Shitsune</h1>
   <h3>Ваша безопасная платформа для общения вдохновленная Twitter</h3>
-  
-  <p>
-    <img src="https://img.shields.io/badge/безопасность-100%25-brightgreen" alt="Security"/>
-    <img src="https://img.shields.io/badge/шифрование-AES--256-blue" alt="Encryption"/>
-    <img src="https://img.shields.io/badge/конфиденциальность-GDPR-compliant" alt="GDPR"/>
-  </p>
 </div>
 
 ---
