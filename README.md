@@ -1,7 +1,7 @@
 <div align="center">
   <img src="public/images/banner.jpg" alt="Shitsune banner"/>
   <h1>Shitsune</h1>
-  <h3>Платформа для общения вдохновленная Twitter</h3>
+  <h3>Платформа для общения вдохновленная Maneko</h3>
 </div>
 
 ---
