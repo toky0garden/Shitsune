@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/{toky0garden}/{Ytweet}/blob/main/public/images/banner.jpg" alt="Shitsune banner"/>
+  <img src="public/images/banner.jpg" alt="Shitsune banner"/>
   <h1>Shitsune</h1>
   <h3>Ваша безопасная платформа для общения вдохновленная Twitter</h3>
   
