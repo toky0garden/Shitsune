@@ -25,7 +25,7 @@ export const Input = ({
       placeholder={placeholder}
       style={{ fontSize: 16 }}
       className={cn(
-        "w-full px-3 py-0.5 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/80",
+        "w-full px-3 py-1 text-white border border-stone-800 rounded-md focus:outline-none focus:ring-1 focus:ring-white/60",
         className,
       )}
       {...props}

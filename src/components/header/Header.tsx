@@ -9,7 +9,7 @@ import { buttonVariants } from "../ui/button";
 export default function Header() {
   return (
     <header
-      className="border-b border-white/10 px-6 py-4 flex items-center justify-between"
+      className="border-b border-white/10 px-6 py-2 flex items-center justify-between"
       style={{ fontSize: 16 }}
     >
       <Link
@@ -19,11 +19,16 @@ export default function Header() {
         <Image
           src={"/Subtract.svg"}
           alt={"logo"}
-          width={20}
-          height={20}
+          width={16}
+          height={16}
           priority
         />
-        <h4 className="text-sm uppercase">{seo.name}</h4>
+        <h4
+          className="text-sm uppercase font-semibold"
+          style={{ fontSize: 13 }}
+        >
+          {seo.name}
+        </h4>
       </Link>
 
       <Menu />

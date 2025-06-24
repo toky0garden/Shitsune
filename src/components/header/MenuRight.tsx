@@ -8,7 +8,7 @@ export function MenuRight() {
   return (
     <div className="flex items-center space-x-4">
       <Link
-        href={ROUTES.AUTH}
+        href={ROUTES.LOGIN}
         prefetch
         className={`${cn(buttonVariants({ variant: "ghost" }))} ${STYLES.HeaderLink.LINK_MENU}`}
       >

@@ -12,6 +12,11 @@ export const postRegister = async ({
     params,
     config,
   );
+
+  if (response.data?.error) {
+    throw new Error(response.data.error);
+  }
+
   if (response.data.token) {
     Cookies.set("auth_token", response.data.token, { expires: 7 });
   }

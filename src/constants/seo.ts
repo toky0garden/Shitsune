@@ -1,7 +1,7 @@
 export const seo = {
-  name: "YTweet",
-  shortName: "Y",
+  name: "Shitsune",
+  shortName: "shtsune",
   description: "Соц.Сеть",
   url: "http://localhost:3000",
-  keywords: ["твит", "соц.сеть", "чат", "ytweet", "утвит"],
+  keywords: ["твит", "соц.сеть", "чат", "профиль"],
 };

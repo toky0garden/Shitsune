@@ -1,8 +1,9 @@
 export const ROUTES = {
-	HOME: '/',
-	AUTH: '/auth/',
-	TWEETS: '/tweets',
-	CHAT: '/chat',
-	FAQ: '/faq',
-	PROFILE: (username: string) => `/profile/${username}`
+  HOME: "/",
+  LOGIN: "/auth/login",
+  REGISTER: "/auth/register",
+  TWEETS: "/tweets",
+  CHAT: "/chat",
+  FAQ: "/faq",
+  PROFILE: (username: string) => `/profile/${username}`,
 } as const;

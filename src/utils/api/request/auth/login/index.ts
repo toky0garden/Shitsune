@@ -7,16 +7,10 @@ export const getLogin = async ({
   params,
   config,
 }: RikTikDevRequestConfig<LoginData>) => {
-  console.log("Sending login request with:", params);
   const response = await api.post<LoginResponse>("/login", params, config);
-  console.log("Received response:", response);
 
-  if (response.data.token) {
-    Cookies.set("auth_token", response.data.token, { expires: 7 });
-  }
-
-  if (response.status === 401 || response.status === 400) {
-    throw new Error("Неверный логин или пароль");
+  if (response.data.access_token) {
+    Cookies.set("auth_token", response.data.access_token, { expires: 7 });
   }
 
   return response.data;
