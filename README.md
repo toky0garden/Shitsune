@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="https://www.shutterstock.com/image-vector/bird-falcon-circle-frame-logo-600nw-2488485751.jpg" width="100" alt="YTweet Logo"/>
-  <h1>YTweet</h1>
+  <img src="https://github.com/{toky0garden}/{Ytweet}/raw/main/public/images/banner.jpg" alt="Shitsune banner"/>
+  <h1>Shitsune</h1>
   <h3>Ваша безопасная платформа для общения вдохновленная Twitter</h3>
   
   <p>
