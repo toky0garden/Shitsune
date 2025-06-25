@@ -5,5 +5,5 @@ export const ROUTES = {
   TWEETS: "/tweets",
   CHAT: "/chat",
   FAQ: "/faq",
-  PROFILE: (username: string) => `/profile/${username}`,
+  PROFILE: (username: string) => `/user/${username}`,
 } as const;

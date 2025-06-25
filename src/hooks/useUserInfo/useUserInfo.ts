@@ -1,25 +1,31 @@
-"use client";
+'use client';
 
-import { GetUser } from "@/types/user.interface";
-import { getUser } from "@/utils/api/request/user/getUser";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { GetUser } from '@/types/user.interface';
+import { getUser } from '@/utils/api/request/user';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
+import { useBoolean } from '../useBoolean/useBoolean';
+import { ParseToken } from '@/generated/parseToken';
 
 export const useUserInfo = () => {
-  const { username } = useParams<{ username: string }>();
-  const [user, setUser] = useState<GetUser | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+	const token = Cookies.get('auth_token') as string;
+	const username = ParseToken(token)?.username;
+	const [user, setUser] = useState<GetUser | null>(null);
+	const [isLoading, setIsLoading] = useBoolean();
+	const [isAuth, setIsAuth] = useBoolean();
 
-  const getUserInfo = async () => {
-    setIsLoading(true);
-    const data = await getUser({ params: { username: username } });
-    setUser(data.data);
-    setIsLoading(false);
-  };
+	const getUserInfo = async () => {
+		setIsLoading(true);
+		// @ts-expect-error - Хелппп
+		const data = (await getUser({ params: { username: username } })).data;
+		setUser(data);
+		setIsAuth(true);
+		setIsLoading(false);
+	};
 
-  useEffect(() => {
-    getUserInfo();
-  }, [username]);
+	useEffect(() => {
+		getUserInfo();
+	}, [username]);
 
-  return { user, isLoading, refretch: getUserInfo };
+	return { user, isAuth, isLoading, refretch: getUserInfo };
 };

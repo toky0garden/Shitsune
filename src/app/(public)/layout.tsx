@@ -1,13 +1,11 @@
-import type { PropsWithChildren } from "react";
-import Header from "../../components/header/Header";
+import Header from '@/components/header/header';
+import type { PropsWithChildren } from 'react';
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <div className="flex justify-center px-4 py-8 w-full max-w-xl mx-auto">
-        {children}
-      </div>
-    </div>
-  );
+	return (
+		<>
+			<Header />
+			<div className='min-h-screen h-full'>{children}</div>
+		</>
+	);
 }

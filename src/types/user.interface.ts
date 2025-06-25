@@ -1,6 +1,7 @@
 export interface GetUser {
-  id: number;
-  email: string;
-  avatar: string;
-  username: string;
+	id: number;
+	username: string;
+	email: string;
+	avatar_url: string;
+	role: number;
 }
