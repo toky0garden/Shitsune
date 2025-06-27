@@ -29,5 +29,5 @@ export function ValidateInputsForLogin(formData: LoginData): ValidationResult {
     return { isValid: false, error: "Пароль должен быть не менее 6 символов" };
   }
 
-  return { isValid: true, error: "" };
+  return { isValid: true };
 }

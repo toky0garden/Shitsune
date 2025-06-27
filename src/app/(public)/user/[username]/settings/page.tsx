@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { UserPage } from "./UserPage";
+import { UserSettings } from "./UserSettings";
 
 export async function generateMetadata({
   params,
@@ -9,13 +9,13 @@ export async function generateMetadata({
   const username = (await params).username;
 
   return {
-    title: username,
+    title: `settings ${username}`,
     alternates: {
-      canonical: `/user/${username}`,
+      canonical: `/user/${username}/settings`,
     },
   };
 }
 
 export default function Page() {
-  return <UserPage />;
+  return <UserSettings />;
 }

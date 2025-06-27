@@ -1,73 +1,76 @@
-'use client';
+"use client";
 
-import { Input } from '../Input';
-import { LoginData } from '@/types/login.types';
-import { useState } from 'react';
-import { getLogin } from '@/utils/api/request';
-import { ValidateInputsForLogin } from '@/generated/validateInputs';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
-import { Error } from '@/components/Error';
-import { ErrorsMsgHandling } from '@/generated/errorsMsgHandling';
+import { Input } from "../Input";
+import { LoginData } from "@/types/login.types";
+import { useState } from "react";
+import { getLogin } from "@/utils/api/request";
+import { ValidateInputsForLogin } from "@/generated/validateInputs";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { Error } from "@/components/ui/error";
+import { ErrorsMsgHandling } from "@/generated/errorsMsgHandling";
+import { useRefreshUser } from "@/hooks/useRefreshUser/useRefreshUser";
 
 export function LoginForm() {
-	const [formData, setFormData] = useState<LoginData>({
-		username: '',
-		password: '',
-	});
-	const router = useRouter();
+  const [formData, setFormData] = useState<LoginData>({
+    username: "",
+    password: "",
+  });
+  const { refreshUser } = useRefreshUser();
 
-	const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = e.target;
-		setFormData((prev) => ({ ...prev, [name]: value }));
-	};
+  const router = useRouter();
 
-	const handleLoginUser = async (e: React.FormEvent) => {
-		e.preventDefault();
+  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-		const validation = ValidateInputsForLogin(formData);
+  const handleLoginUser = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-		if (validation.isValid) {
-			await getLogin({ params: formData })
-				.then(() => router.push('/'))
-				.catch((err) => ErrorsMsgHandling(err));
-			//НАДО ЧТОБ ВЕЛО НА ПРОФИЛЬ СТРАНИЦУ
-		} else {
-			toast.error(validation.error);
-			return;
-		}
-	};
+    const validation = ValidateInputsForLogin(formData);
 
-	return (
-		<form className='space-y-4'>
-			<Error />
-			<div className='mb-4'>
-				<Input
-					name='username'
-					type='text'
-					value={formData.username}
-					onChange={handleChangeValue}
-					placeholder='Имя пользователя или почта'
-				/>
-			</div>
+    if (validation.isValid) {
+      await getLogin({ params: formData })
+        .then(() => router.push(`/user/${formData.username}`))
+        .catch((err) => ErrorsMsgHandling(err));
+      await refreshUser();
+    } else {
+      toast.error(validation.error);
+      return;
+    }
+  };
 
-			<div className='mb-4'>
-				<Input
-					name='password'
-					type='password'
-					value={formData.password}
-					onChange={handleChangeValue}
-					placeholder='Пароль'
-				/>
-			</div>
+  return (
+    <form className="space-y-4">
+      <Error />
+      <div className="mb-4">
+        <Input
+          name="username"
+          type="text"
+          value={formData.username}
+          onChange={handleChangeValue}
+          placeholder="Имя пользователя или почта"
+        />
+      </div>
 
-			<button
-				style={{ cursor: 'pointer', fontSize: 16 }}
-				onClick={handleLoginUser}
-				className='w-full bg-white text-black py-1 rounded-md hover:bg-stone-300 transition-colors mb-4'
-			>
-				Продолжить
-			</button>
-		</form>
-	);
+      <div className="mb-4">
+        <Input
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChangeValue}
+          placeholder="Пароль"
+        />
+      </div>
+
+      <button
+        style={{ cursor: "pointer", fontSize: 16 }}
+        onClick={handleLoginUser}
+        className="w-full bg-white text-black py-1 rounded-md hover:bg-stone-300 transition-colors mb-4"
+      >
+        Продолжить
+      </button>
+    </form>
+  );
 }

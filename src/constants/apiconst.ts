@@ -1,2 +1,1 @@
-export const API_URL = 'http://26.172.117.24:8000';
-export const API_AVATAR = ``
+export const API_URL = "http://26.172.117.24:8000";

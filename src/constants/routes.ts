@@ -6,4 +6,5 @@ export const ROUTES = {
   CHAT: "/chat",
   FAQ: "/faq",
   PROFILE: (username: string) => `/user/${username}`,
+  SETTINGS: (username: string) => `/user/${username}/settings`,
 } as const;
