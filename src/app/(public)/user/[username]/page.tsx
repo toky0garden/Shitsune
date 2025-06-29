@@ -1,17 +1,13 @@
-import { Metadata } from 'next';
-import notFound from '@/app/not-found';
-import { getUser } from '@/utils/api/request/user/getUser';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { FriendCard } from '@/components/user/friend-card';
-import { AddFriend } from '@/components/user/add-friend';
-import { UserBanner } from '@/components/user/user-banner';
-import { UserAvatar } from '@/components/user/user-avatar';
-import { AboutUser } from '@/components/user/user-about';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import { ROUTES } from '@/app/(constants)/routes';
-import { EditProfile } from '@/components/user/edit-profile';
+import { Metadata } from "next";
+import notFound from "@/app/not-found";
+import { getUser } from "@/utils/api/request/user/getUser";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { FriendCard } from "@/components/user/friend-card";
+import { AddFriend } from "@/components/user/add-friend";
+import { UserBanner } from "@/components/user/user-banner";
+import { UserAvatar } from "@/components/user/user-avatar";
+import { AboutUser } from "@/components/user/user-about";
 
 export async function generateMetadata({
   params,
@@ -41,11 +37,11 @@ export default async function Page({
   }
 
   return (
-    <div className='w-full'>
-      <div className='mx-auto box-border block min-h-full w-full'>
+    <div className="w-full">
+      <div className="mx-auto box-border block min-h-full w-full">
         <UserBanner user={user?.data} />
 
-        <div className='flex items-center justify-between'>
+        <div className="flex items-center justify-between">
           <div>
             <UserAvatar user={user?.data} />
 
@@ -56,15 +52,15 @@ export default async function Page({
           </div>
         </div>
 
-        <Card className='w-full max-w-md border-none'>
+        <Card className="w-full max-w-md border-none">
           <CardHeader>
-            <CardTitle className='flex items-center gap-2 text-white'>
-              <span className='text-2xl font-normal'>Друзья</span>
-              <Badge className='text-sm'>{user?.data.friends.length}</Badge>
+            <CardTitle className="flex items-center gap-2 text-white">
+              <span className="text-2xl font-normal">Друзья</span>
+              <Badge className="text-sm">{user?.data.friends.length}</Badge>
             </CardTitle>
           </CardHeader>
           {user?.data.friends.length ? (
-            <CardContent className='space-y-4'>
+            <CardContent className="space-y-4">
               {user.data.friends.map((friend) => (
                 <FriendCard key={friend.username} friend={friend} />
               ))}
