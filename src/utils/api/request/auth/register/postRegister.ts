@@ -1,14 +1,14 @@
-import { RegisterData, RegisterResponse } from "@/types/register.types";
-import { api } from "@/utils/api/instance";
-import { RikTikDevRequestConfig } from "@/utils/api/type";
-import Cookies from "js-cookie";
+import { RegisterData, RegisterResponse } from '@/types/register.types';
+import { api } from '@/utils/api/instance';
+import { RikTikDevRequestConfig } from '@/utils/api/type';
+import Cookies from 'js-cookie';
 
 export const postRegister = async ({
   params,
   config,
 }: RikTikDevRequestConfig<RegisterData>) => {
   const response = await api.post<RegisterResponse>(
-    "/register",
+    '/register',
     params,
     config,
   );
@@ -18,7 +18,7 @@ export const postRegister = async ({
   }
 
   if (response.data.token) {
-    Cookies.set("auth_token", response.data.token, { expires: 7 });
+    Cookies.set('auth_token', response.data.token, { expires: 7 });
   }
   return response.data;
 };

@@ -1,4 +1,4 @@
-import { AvatarResponse } from "@/types/avatar.type";
+import { AvatarResponse } from "@/types/user.interfaces";
 import { api } from "@/utils/api/instance";
 import { RikTikDevRequestConfig } from "@/utils/api/type";
 

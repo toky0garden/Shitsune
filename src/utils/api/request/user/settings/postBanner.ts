@@ -1,4 +1,4 @@
-import { BannerResponse } from "@/types/banner.type";
+import { BannerResponse } from "@/types/user.interfaces";
 import { api } from "@/utils/api/instance";
 import { RikTikDevRequestConfig } from "@/utils/api/type";
 

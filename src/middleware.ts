@@ -1,12 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ROUTES } from "./constants";
-import { ParseToken } from "./generated/parseToken";
+import { NextRequest, NextResponse } from 'next/server';
+import { ParseToken } from './generated/parseToken';
+import { ROUTES } from './app/(constants)/routes';
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get("auth_token")?.value;
+  const token = request.cookies.get('auth_token')?.value;
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/user") && !token) {
+  if (pathname.startsWith('/user') && !token) {
     return NextResponse.redirect(new URL(ROUTES.LOGIN, request.url));
   }
 
@@ -14,9 +14,9 @@ export function middleware(request: NextRequest) {
     const parsedToken = ParseToken(token);
 
     if (parsedToken?.username) {
-      if (pathname.startsWith("/user/[username]/settings")) {
+      if (pathname.startsWith('/user/') && pathname.endsWith('/settings')) {
         // Получаем username из URL
-        const urlUsername = pathname.split("/")[2];
+        const urlUsername = pathname.split('/')[2];
 
         if (parsedToken.username !== urlUsername) {
           return NextResponse.redirect(
@@ -27,8 +27,8 @@ export function middleware(request: NextRequest) {
 
       //с логина или регистрации редирект на профиль
       if (
-        pathname.includes("/auth/login") ||
-        pathname.includes("/auth/register")
+        pathname.includes('/auth/login') ||
+        pathname.includes('/auth/register')
       ) {
         return NextResponse.redirect(
           new URL(ROUTES.PROFILE(parsedToken.username), request.url),
@@ -36,9 +36,10 @@ export function middleware(request: NextRequest) {
       }
     }
   }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/auth/:path*", "/user/:path*"],
+  matcher: ['/auth/:path*', '/user/:path*'],
 };

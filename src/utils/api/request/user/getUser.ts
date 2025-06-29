@@ -1,4 +1,4 @@
-import { GetUser } from '@/types/user.interface';
+import { GetUser } from '@/types/user.interfaces';
 import { api } from '../../instance';
 import { RikTikDevRequestConfig } from '../../type';
 

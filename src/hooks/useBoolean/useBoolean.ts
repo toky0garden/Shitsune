@@ -1,4 +1,5 @@
-import { useState } from "react";
+'use client';
+import { useState } from 'react';
 
 /** The use boolean return type */
 export type UseBooleanReturn = [

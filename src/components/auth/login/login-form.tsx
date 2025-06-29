@@ -1,73 +1,38 @@
-"use client";
+'use client';
 
-import { Input } from "../Input";
-import { LoginData } from "@/types/login.types";
-import { useState } from "react";
-import { getLogin } from "@/utils/api/request";
-import { ValidateInputsForLogin } from "@/generated/validateInputs";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import { Error } from "@/components/ui/error";
-import { ErrorsMsgHandling } from "@/generated/errorsMsgHandling";
-import { useRefreshUser } from "@/hooks/useRefreshUser/useRefreshUser";
+import { useAuth } from '@/app/(contexts)/auth/login-context';
+import { Input } from '../Input';
+import { ToastShow } from '@/components/ui/toast-container';
 
 export function LoginForm() {
-  const [formData, setFormData] = useState<LoginData>({
-    username: "",
-    password: "",
-  });
-  const { refreshUser } = useRefreshUser();
-
-  const router = useRouter();
-
-  const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleLoginUser = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const validation = ValidateInputsForLogin(formData);
-
-    if (validation.isValid) {
-      await getLogin({ params: formData })
-        .then(() => router.push(`/user/${formData.username}`))
-        .catch((err) => ErrorsMsgHandling(err));
-      await refreshUser();
-    } else {
-      toast.error(validation.error);
-      return;
-    }
-  };
+  const { loginData, handleLoginChange, handleLoginSubmit } = useAuth();
 
   return (
-    <form className="space-y-4">
-      <Error />
-      <div className="mb-4">
+    <form onSubmit={handleLoginSubmit} className='space-y-4'>
+      <ToastShow />
+      <div className='mb-4'>
         <Input
-          name="username"
-          type="text"
-          value={formData.username}
-          onChange={handleChangeValue}
-          placeholder="Имя пользователя или почта"
+          name='username'
+          type='text'
+          value={loginData.username}
+          onChange={handleLoginChange}
+          placeholder='Имя пользователя или почта'
         />
       </div>
 
-      <div className="mb-4">
+      <div className='mb-4'>
         <Input
-          name="password"
-          type="password"
-          value={formData.password}
-          onChange={handleChangeValue}
-          placeholder="Пароль"
+          name='password'
+          type='password'
+          value={loginData.password}
+          onChange={handleLoginChange}
+          placeholder='Пароль'
         />
       </div>
 
       <button
-        style={{ cursor: "pointer", fontSize: 16 }}
-        onClick={handleLoginUser}
-        className="w-full bg-white text-black py-1 rounded-md hover:bg-stone-300 transition-colors mb-4"
+        style={{ cursor: 'pointer', fontSize: 16 }}
+        className='w-full bg-white text-black py-1 rounded-md hover:bg-stone-300 transition-colors mb-4'
       >
         Продолжить
       </button>
