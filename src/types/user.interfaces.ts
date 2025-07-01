@@ -30,3 +30,8 @@ export interface DisplayNameResponse {
   display_name: string;
   error?: string;
 }
+
+export interface SearchUser {
+  username: string | null;
+  avatar_url: string;
+}

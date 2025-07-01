@@ -8,11 +8,13 @@ import { UserDropdown } from './user-dropdown';
 import { ROUTES } from '@/app/(constants)/routes';
 import { buttonVariants } from '@/components/ui/button';
 import { STYLES } from '@/app/(constants)';
+import { UserSearch } from './user-search';
 export function MenuRight() {
   const [isAuth] = useAtom(userAuth);
 
   return (
-    <div className='flex items-center space-x-4 outline-none'>
+    <div className='flex items-center outline-none gap-4'>
+      {isAuth && <UserSearch />}
       {isAuth ? (
         <UserDropdown />
       ) : (

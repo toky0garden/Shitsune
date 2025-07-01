@@ -55,7 +55,6 @@ export function AvatarUpload() {
 
     if (valid.isValid) {
       await postAvatar({ params: formData });
-      console.log(user?.avatar_url);
       await refreshUser();
       if (fileInputRef.current) {
         fileInputRef.current.value = '';

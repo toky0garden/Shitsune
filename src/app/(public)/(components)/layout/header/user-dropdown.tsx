@@ -83,16 +83,6 @@ export function UserDropdown() {
           </Link>
         </DropdownMenuItem>
         <div className='border-b border-stone-800 mb-2'></div>
-        <DropdownMenuItem>
-          <Link
-            className='flex items-center w-full'
-            onClick={openOrclose}
-            href={ROUTES.SETTINGS(user?.username)}
-          >
-            <SettingsIcon className='mr-2 size-4' />
-            <p className='text-sm'>Настройки</p>
-          </Link>
-        </DropdownMenuItem>
         <DropdownMenuItem
           className='cursor-pointer text-red-500 flex items-center'
           onClick={handleLogout}

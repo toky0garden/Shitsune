@@ -1,3 +1,10 @@
+import { ToastShow } from '@/components/ui/toast-container';
+
 export default function HomePage() {
-	return <div>home</div>;
+  return (
+    <div>
+      <ToastShow />
+      home
+    </div>
+  );
 }

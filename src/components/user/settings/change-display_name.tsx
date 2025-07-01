@@ -33,6 +33,15 @@ export function ChangeDisplayName() {
     toast.success('Вы успешно изменили отображаемое имя');
   };
 
+  const handleResetDisplayName = async (e: FormEvent) => {
+    e.preventDefault();
+
+    await postDisplayName({
+      params: { username: username, display_name: '' },
+    });
+    toast.success('Вы успешно сбросили отображаемое имя');
+  };
+
   return (
     <Card className='w-full  max-w-4xl border-stone-800'>
       <ToastShow />
@@ -43,7 +52,7 @@ export function ChangeDisplayName() {
           использовать
         </CardDescription>
       </CardHeader>
-      <form onSubmit={handleChangeDisplayName} className='space-y-4'>
+      <form className='space-y-4'>
         <div className='space-y-2 ml-5'>
           <Input
             maxLength={20}
@@ -59,17 +68,32 @@ export function ChangeDisplayName() {
           <p className='text-sm text-gray-300'>
             Пожалуйста используйте не более 24 символа
           </p>
-          <Button
-            type='submit'
-            style={{
-              color: 'black',
-              cursor: 'pointer',
-            }}
-            disabled={!displayName}
-            className='mr-5 bg-white hover:bg-stone-200 rounded-lg  transition-colors'
-          >
-            Сохранить
-          </Button>
+          <div className='flex items-center'>
+            <Button
+              type='submit'
+              style={{
+                color: 'black',
+                cursor: 'pointer',
+              }}
+              onClick={handleResetDisplayName}
+              className='mr-5 bg-white hover:bg-stone-200 rounded-lg  transition-colors'
+            >
+              Сбросить
+            </Button>
+
+            <Button
+              type='submit'
+              style={{
+                color: 'black',
+                cursor: 'pointer',
+              }}
+              onClick={handleChangeDisplayName}
+              disabled={!displayName}
+              className='mr-5 bg-white hover:bg-stone-200 rounded-lg  transition-colors'
+            >
+              Сохранить
+            </Button>
+          </div>
         </div>
       </form>
     </Card>

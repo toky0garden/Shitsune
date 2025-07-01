@@ -1,4 +1,4 @@
-export * from './auth/login/getLogin';
+export * from './auth/login/postLogin';
 export * from './auth/logout/logout';
 export * from './auth/register/postRegister';
 export * from './user/getUser';

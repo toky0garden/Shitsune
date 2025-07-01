@@ -3,7 +3,7 @@ import { api } from '@/utils/api/instance';
 import { RikTikDevRequestConfig } from '@/utils/api/type';
 import Cookies from 'js-cookie';
 
-export const getLogin = async ({
+export const postLogin = async ({
   params,
   config,
 }: RikTikDevRequestConfig<LoginData>) => {

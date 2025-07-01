@@ -14,21 +14,21 @@ export function AddFriend({ user }: GetUser) {
   const [currentUser] = useAtom(userAtom);
   const [isSubscribed, setIsSubscribed] = useBoolean();
 
-  useEffect(() => {
-    const fetchSubscriptionStatus = async () => {
-      if (!currentUser) return;
+  // useEffect(() => {
+  //   const fetchSubscriptionStatus = async () => {
+  //     if (!currentUser) return;
 
-      const isSub = await postFriendAdd({
-        params: {
-          username: currentUser.username,
-          friends: { username: user.username },
-        },
-      });
-      setIsSubscribed(isSub);
-    };
+  //     const isSub = await postFriendAdd({
+  //       params: {
+  //         username: currentUser.username,
+  //         friends: { username: user.username },
+  //       },
+  //     });
+  //     setIsSubscribed(isSub);
+  //   };
 
-    fetchSubscriptionStatus();
-  }, [currentUser, user.username]);
+  //   fetchSubscriptionStatus();
+  // }, [currentUser, user.username]);
 
   if (!currentUser || currentUser.username === user.username) {
     return null;
@@ -50,7 +50,7 @@ export function AddFriend({ user }: GetUser) {
     <>
       <ToastShow />
       <Button
-        className='border border-stone-800 mt-3 ml-5 py-3 hover:bg-stone-900/70'
+        className='border border-stone-800 ml-2 py-3 hover:bg-stone-900/70'
         onClick={handleAddFriend}
         style={{ cursor: isSubscribed ? 'default' : 'pointer' }}
         disabled={isSubscribed}
