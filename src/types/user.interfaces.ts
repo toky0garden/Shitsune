@@ -9,6 +9,7 @@ export interface GetUser {
   display_name: string;
   friends: {
     username: string;
+    display_name: string;
     avatar_url: string;
   };
 }

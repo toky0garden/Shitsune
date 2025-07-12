@@ -29,6 +29,7 @@ export function DeleteFriend({ user }: GetUser) {
   return (
     <>
       <ToastShow />
+
       <Button
         className='border border-red-800  hover:bg-stone-900/70'
         onClick={handleDeleteFriend}

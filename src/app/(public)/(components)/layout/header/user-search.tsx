@@ -2,16 +2,13 @@ import { STYLES } from '@/app/(constants)';
 import { buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
-import { ToastShow } from '@/components/ui/toast-container';
 import { FriendCard } from '@/components/user/friend-card';
-import { getErrorMessage } from '@/generated';
 import { useBoolean } from '@/hooks';
 import { cn } from '@/lib/utils';
 import { SearchUser } from '@/types/user.interfaces';
@@ -19,7 +16,6 @@ import { getAllUsers } from '@/utils/api/request/user/getAllUsers';
 import { DialogTitle } from '@radix-ui/react-dialog';
 import { SearchIcon, X } from 'lucide-react';
 import React, { useCallback, useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 
 export function UserSearch() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,17 +32,13 @@ export function UserSearch() {
       setSearchResults([]);
       return;
     }
-    try {
-      const response = await getAllUsers({ params: { username: searchQuery } });
-      setSearchResults(response.data);
-    } catch (err) {
-      toast.error(getErrorMessage(err));
-    }
+
+    const response = await getAllUsers({ params: { username: searchQuery } });
+    setSearchResults(response.data);
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => fetchUsers(searchQuery), 500);
-    return () => clearTimeout(timer);
+    fetchUsers(searchQuery);
   }, [searchQuery]);
 
   const handleFriendCardClick = () => {
@@ -57,7 +49,6 @@ export function UserSearch() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <ToastShow />
       <form>
         <DialogTrigger asChild>
           <SearchIcon
@@ -81,7 +72,7 @@ export function UserSearch() {
           </DialogHeader>
           <Tabs defaultValue='quick' className='mt-4'>
             <TabsContent value='quick' className='py-4'>
-              {searchResults.length > 0 && (
+              {searchResults.length > 0 ? (
                 <div className='max-h-60 overflow-y-auto'>
                   {searchResults.map((user) => (
                     <div
@@ -93,6 +84,8 @@ export function UserSearch() {
                     </div>
                   ))}
                 </div>
+              ) : (
+                <p className='text-center'>Не найдено</p>
               )}
             </TabsContent>
           </Tabs>

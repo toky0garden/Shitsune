@@ -1,6 +1,6 @@
 export const METADATA = {
-  NAME: 'Tsunami',
-  DESCRIPTION: 'Tsunami - basic social network',
+  NAME: 'Shitsune',
+  DESCRIPTION: 'Shitsune - basic social network',
   URL: 'http://localhost:3000',
   KEYWORDS: [
     'твит',

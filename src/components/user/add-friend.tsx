@@ -18,13 +18,13 @@ export function AddFriend({ user }: GetUser) {
   //   const fetchSubscriptionStatus = async () => {
   //     if (!currentUser) return;
 
-  //     const isSub = await postFriendAdd({
+  //     await postFriendAdd({
   //       params: {
   //         username: currentUser.username,
   //         friends: { username: user.username },
   //       },
   //     });
-  //     setIsSubscribed(isSub);
+  //     // setIsSubscribed(isSub);
   //   };
 
   //   fetchSubscriptionStatus();
@@ -35,14 +35,14 @@ export function AddFriend({ user }: GetUser) {
   }
 
   const handleAddFriend = async () => {
-    const isSub = await postFriendAdd({
+    await postFriendAdd({
       params: {
         username: currentUser.username,
-        friends: { username: user.username },
+        subs: { username: user.username },
       },
     });
 
-    setIsSubscribed(isSub);
+    // const isSub = await setIsSubscribed(isSub);
     toast.success(`Вы успешно подписались на ${user.username}`);
   };
 

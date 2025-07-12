@@ -38,6 +38,8 @@ export default async function Page({
     return notFound();
   }
 
+  console.log(user.data.friends.username);
+
   return (
     <div className='w-full'>
       <div className='mx-auto box-border block min-h-full w-full'>
